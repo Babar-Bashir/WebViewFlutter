@@ -1,47 +1,77 @@
-import 'dart:async';
 
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
-import 'package:instructorbrandon_com/_WebViewStateContainer.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:instructorbrandon_com/data_connectivity_checker.dart';
+import 'package:instructorbrandon_com/home_page.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(
+    StreamProvider<DataConnectionStatus>(
+      create: (context){
+        return DataConnectivityService().connectivityStreamController.stream;
+      },
+      child: MyApp(),
+    )
+  );
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  var url = "https://www.instructorbrandon.com";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SafeArea(child: WebViewContainer(url)),
+      home: SplashScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-  var url = "https://www.instructorbrandon.com";
+class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
+
+    Future.delayed(const Duration(milliseconds: 5000), () {
+      setState(() {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>
+            HomePage()));
+      });
+    });
+
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Builder(builder: (BuildContext context) {
-        return WebViewContainer(url);
-      }),
-
+      body: SafeArea(
+        child: Center(
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.asset("images/app_logo.png"),
+                  ),
+                  CircularProgressIndicator(),
+                  Text("Powered By  instructorbrandon.com")
+                ],
+              ),
+            ),
+        ),
+      ),
     );
   }
 }
