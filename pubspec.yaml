@@ -24,6 +24,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   webview_flutter: ^0.3.22+1
+  data_connection_checker: ^0.3.4
+  provider: ^4.1.1
+  flutter_spinkit: ^4.1.1
 
 dev_dependencies:
   flutter_test:
