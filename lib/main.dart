@@ -43,9 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 5000), () {
+    Future.delayed(const Duration(milliseconds: 2000), () {
       setState(() {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>
             HomePage()));
       });
     });
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(24.0),
                     child: Image.asset("images/app_logo.png"),
                   ),
                   CircularProgressIndicator(),
